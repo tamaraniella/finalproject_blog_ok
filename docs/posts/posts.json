@@ -43,5 +43,20 @@
     "categories": [],
     "preview": {},
     "last_modified": "2019-03-20T16:33:10-07:00"
+  },
+  {
+    "path": "posts/2019-03-20-plot-2/",
+    "title": "Plot 2",
+    "description": "Here I will briefly show the process I went through before getting the final version of the second plot, together with its final version.",
+    "author": [
+      {
+        "name": "Tamara Niella",
+        "url": "https://www.linkedin.com/in/tniella/"
+      }
+    ],
+    "date": "2019-03-20",
+    "categories": [],
+    "preview": "posts/2019-03-20-plot-2/plot-2_files/figure-html5/try1p2-1.png",
+    "last_modified": "2019-03-20T23:29:44-07:00"
   }
 ]
