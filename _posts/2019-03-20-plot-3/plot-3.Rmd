@@ -149,7 +149,7 @@ tn_dat <- dat_int %>%
 tn_dat$part <- gsub("p1", "Part 1", tn_dat$part)
 tn_dat$part <- gsub("p3", "Part 3", tn_dat$part)
 
-
+tn_dat$Mindset <- gsub("Treatment", "Doubt", tn_dat$Mindset)
 
 
 ggplot(tn_dat, aes(score, color = part, fill = part))+
@@ -161,6 +161,10 @@ ggplot(tn_dat, aes(score, color = part, fill = part))+
 
 ## Second Version 
 
+Went for a density - ridges plot, that way the difference of distribution in part1 and 3 is clearer 
+
+
+
 ```{r try2p3}
 #adding colors 
 ggplot(tn_dat, aes(score,part))+
@@ -170,6 +174,12 @@ ggplot(tn_dat, aes(score,part))+
 
 
 ```
+
+# Final Version
+
+Decided to change the organization of the density ridges plot: decided to put Mindset on the y axis and facet wrap the plot on Part 1 and 3 , this way is easier to compare the change in distribution from part 1 to 3 between Control land Doubt mindsets. 
+
+I also added important final details like title, subtitle, legends and color blind friendly color palette. 
 
 ```{r finalp3}
 
@@ -181,7 +191,7 @@ ggplot(tn_dat, aes(score,Mindset))+
   scale_fill_OkabeIto(order=c(3,6))+
   scale_color_OkabeIto(order=c(3,6))+
   facet_wrap(~part) +
-  labs(title = "Judgment Distribution", subtitle= "Distribution of Judgment before (Part 1) and after (Part 3) discussion with partner", x = "Judgment", y = "Density")+
+  labs(title = "Judgment Distribution", subtitle= "Judgment before (Part 1) and after (Part 3) discussion", x = "Judgment", y = "Density")+
   theme_minimal(base_size = 15)
 
 
@@ -189,4 +199,8 @@ ggplot(tn_dat, aes(score,Mindset))+
 
 ```
 
+## Interpretation 
 
+The distribution of the Judgment on the moral/political issues is pretty similar in Part 1 for both Doubt and Control mindset groups. However, in Part 3 the distribution of judgment seems to have higher variability for the Doubt Mindset group, and seems to be almost bi-modal, while the distribution of judgment for the Control Mindset group is uni-modal and the variability seems to decrease. 
+
+In a way, this supports our Hypothesis 3: Since, during the discussion part, there was a higher percentage of agreement in the control group, and therefore we now see a more Uni-modal distribution of judgment after the discussion (People's opinions get closer)
