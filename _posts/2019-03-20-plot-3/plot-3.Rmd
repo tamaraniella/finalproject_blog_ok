@@ -1,0 +1,192 @@
+---
+title: "Plot 3"
+description: |
+  Here I will briefly show the process I went through before getting the final version of the third plot, together with its final version.
+author:
+  - name: Tamara Niella
+    url: https://www.linkedin.com/in/tniella/
+date: 03-20-2019
+output:
+  radix::radix_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+
+library(aod)
+#install.packages("aod")
+library(ggplot2)
+library(here)
+library(tidyverse)
+library(rio)
+library(magrittr)
+library(skimr)
+library(janitor)
+library(fastDummies)
+#install.packages("fastDummies")
+library(reshape2)
+library(wesanderson)
+library(ggridges)
+library(sundry)
+library(colorblindr) 
+
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r data wrangling}
+
+#Load data 
+
+dat_int<- import(here("sim_data_int.csv"))
+
+#making variable names nice 
+
+colnames(dat_int)[1]<- "mindset"
+
+dat_int %<>% janitor::clean_names()
+
+#getting rid of subjects that in the expeirment had some kind of problem (did't complete task well etc), and I am only keeping data from one participant per dyad, since initially, I will only look at answers that dyads answered together (same answer for both participants, I only need one)
+
+dat_dyad<- dat_int %>% 
+  filter(problem == 0, dyad_part == "A") 
+
+#getting demographic data (for potential methods section)
+
+dat_dem<- dat_int %>% 
+  filter(problem == 0, gender > 0) %>%
+  drop_na(age) %>%
+  select(gender, age)
+
+mean_age <- mean(dat_dem$age)
+sd_age <- sd(dat_dem$age)
+sum_fem <- dat_dem %>% 
+  filter(gender == 2 )%>%
+  summarize(fem = length(gender))
+
+sum_dem <- dat_dem %>% 
+  group_by(gender) %>%
+  summarize(gen = length(gender))
+
+#renaming variable value names, changing "treatment for doubt", to improve explanation of study through graphs and analysis
+
+dat_dyad$mindset <-  gsub("Treatment", "Doubt", dat_dyad$mindset)
+
+#coding mindset as factor 
+
+dat_dyad$mindset <- as.factor(dat_dyad$mindset)
+
+#stuff from plot 1 
+
+#I want to see the dyad aswers for agreement (yes or no) for both stories, then I will create a new data set with one variable for agreement, that will iclude agreement for stories one and 2 and another variable that will indicate whether that agreement belongs to story 1 (freedom of speech) or 2 (cyber privacy)
+
+mindset2 <- rep(dat_dyad$mindset, 2)
+agreement <- c(dat_dyad$dyad_ag_s1, dat_dyad$dyad_ag_s2)
+story <- as.factor(c(rep.int(1,36), rep.int(2,36)))
+
+
+data<- data.frame(mindset2, agreement, story)
+
+#change values of variable "story", names for numbers (I will only need this if I decide to show the proportions of agreement for the different stories - which is not totally relevant to the results of the study, so I am still debating about it )
+
+data$story <- gsub("1", "Freedom of Speech", data$story)
+data$story <- gsub("2", "Cyber Privacy", data$story)
+
+
+```
+
+
+# Plot 3's Goal
+
+I want to compare the distribution of Judgement in the studied sample from Part 1 to Part 3 between the 2 different mindset groups. 
+
+The goal is to communicate the effect of the mindset participants are given, in how much their opinion on a moral or political issue changes after discussing it with someone else. 
+
+## First Version 
+
+Density plots, divided by Mindset and the densities for each part stacked. 
+Is a good start but the effect is not so clear. 
+
+```{r try1p3}
+
+#I am going to focus on data from the interaction condition and for this I will look at individual data (Parts 1 and 3 were done individually, not in pairs)
+
+data_ok <- dat_int %>% filter(problem==0)
+data_ok$mindset <-  gsub("Treatment", "Doubt", data_ok$mindset)
+
+mindset3 <- rep(data_ok$mindset, 4)
+
+judge_p1 <- c(data_ok$s1_judge_p1, data_ok$s2_judge_p1)
+judge_p3 <- c(data_ok$s1_judge_p3, data_ok$s2_judge_p3)
+judge <- c(judge_p1, judge_p3)
+story3 <- rep(as.factor(c(rep.int(1,92), rep.int(2,92))),2)
+part <-as.factor(c(rep.int(1,184), rep.int(3,184)))
+
+
+data_3<- data.frame(mindset3, judge, story3,part)
+
+data_3$story3 <- gsub("1", "Freedom of Speech", data_3$story3)
+data_3$story3 <- gsub("2", "Cyber Privacy", data_3$story3)
+
+data_3 %<>% drop_na(judge)
+
+
+#New data wrangling based on JP suggestions: 
+
+tn_dat <- dat_int %>% 
+  filter(problem == 0) %>% 
+  select(mindset, 
+         s1_judge_p1,
+         s2_judge_p1,
+         s1_judge_p3,
+         s2_judge_p3) %>% 
+  gather(judge, score, -1) %>% 
+  separate(judge, c("s_type", "delete", "part"), sep = "_") %>% 
+  select(-delete)%>%
+  drop_na(score)%>%
+  rename(Mindset = mindset)
+
+tn_dat$part <- gsub("p1", "Part 1", tn_dat$part)
+tn_dat$part <- gsub("p3", "Part 3", tn_dat$part)
+
+
+
+
+ggplot(tn_dat, aes(score, color = part, fill = part))+
+  geom_density(alpha = 0.5)+
+  facet_wrap(~Mindset) +
+  theme_minimal()
+
+```
+
+## Second Version 
+
+```{r try2p3}
+#adding colors 
+ggplot(tn_dat, aes(score,part))+
+  geom_density_ridges(aes(fill=part))+
+  facet_wrap(~Mindset) +
+  theme_minimal() 
+
+
+```
+
+```{r finalp3}
+
+
+#Possible Final version: 
+
+ggplot(tn_dat, aes(score,Mindset))+
+  geom_density_ridges(aes(fill=Mindset, color= Mindset), alpha=.7)+
+  scale_fill_OkabeIto(order=c(3,6))+
+  scale_color_OkabeIto(order=c(3,6))+
+  facet_wrap(~part) +
+  labs(title = "Judgment Distribution", subtitle= "Distribution of Judgment before (Part 1) and after (Part 3) discussion with partner", x = "Judgment", y = "Density")+
+  theme_minimal(base_size = 15)
+
+
+
+
+```
+
+
