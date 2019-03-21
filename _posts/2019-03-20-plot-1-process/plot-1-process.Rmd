@@ -1,7 +1,7 @@
 ---
-title: "Plot 1 - Process"
-description: |
-  A short description of the post.
+title: "Plot 1"
+description: | Here I will briefly show the process I went through before getting the final version of the first plot together with its final version. 
+
 author:
   - name: Tamara Niella
     url: https://www.linkedin.com/in/tniella/
@@ -12,10 +12,173 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+
+library(aod)
+#install.packages("aod")
+library(ggplot2)
+library(here)
+library(tidyverse)
+library(rio)
+library(magrittr)
+library(skimr)
+library(janitor)
+library(fastDummies)
+#install.packages("fastDummies")
+library(reshape2)
+library(wesanderson)
+library(ggridges)
+library(sundry)
+library(colorblindr) 
+
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Radix is a publication format for scientific and technical writing, native to the web.
+```{r data wrangling}
 
-Learn more about using Radix at <https://rstudio.github.io/radix>.
+#Load data 
 
+dat_int<- import(here("sim_data_int.csv"))
+
+#making variable names nice 
+
+colnames(dat_int)[1]<- "mindset"
+
+dat_int %<>% janitor::clean_names()
+
+#getting rid of subjects that in the expeirment had some kind of problem (did't complete task well etc), and I am only keeping data from one participant per dyad, since initially, I will only look at answers that dyads answered together (same answer for both participants, I only need one)
+
+dat_dyad<- dat_int %>% 
+  filter(problem == 0, dyad_part == "A") 
+
+#getting demographic data (for potential methods section)
+
+dat_dem<- dat_int %>% 
+  filter(problem == 0, gender > 0) %>%
+  drop_na(age) %>%
+  select(gender, age)
+
+mean_age <- mean(dat_dem$age)
+sd_age <- sd(dat_dem$age)
+sum_fem <- dat_dem %>% 
+  filter(gender == 2 )%>%
+  summarize(fem = length(gender))
+
+sum_dem <- dat_dem %>% 
+  group_by(gender) %>%
+  summarize(gen = length(gender))
+
+#renaming variable value names, changing "treatment for doubt", to improve explanation of study through graphs and analysis
+
+dat_dyad$mindset <-  gsub("Treatment", "Doubt", dat_dyad$mindset)
+
+#coding mindset as factor 
+
+dat_dyad$mindset <- as.factor(dat_dyad$mindset)
+```
+
+
+# Plot 1's goal: 
+
+A bar graph comparing the proportion of agreement (y-axis) in dyads of participants who had the “control” mindset and of participants who got the “doubt” mindset (x- axis, 1 bar per group).
+The goal is to communicate the effect of the mindset on the chances of reaching an agreement. 
+
+
+## First version 
+
+Bar graph - but some legends are a little too small, and has not measure of uncertainty, and title and axis could be improved
+
+```{r try1}
+
+#I want to see the dyad aswers for agreement (yes or no) for both stories, then I will create a new data set with one variable for agreement, that will iclude agreement for stories one and 2 and another variable that will indicate whether that agreement belongs to story 1 (freedom of speech) or 2 (cyber privacy)
+
+mindset2 <- rep(dat_dyad$mindset, 2)
+agreement <- c(dat_dyad$dyad_ag_s1, dat_dyad$dyad_ag_s2)
+story <- as.factor(c(rep.int(1,36), rep.int(2,36)))
+
+
+data<- data.frame(mindset2, agreement, story)
+
+#change values of variable "story", names for numbers (I will only need this if I decide to show the proportions of agreement for the different stories - which is not totally relevant to the results of the study, so I am still debating about it )
+
+data$story <- gsub("1", "Freedom of Speech", data$story)
+data$story <- gsub("2", "Cyber Privacy", data$story)
+
+#try 1: summarizing data for plot 1 (version dividing agreement not only per mindset but also per story)
+
+summary2<- data%>% 
+  group_by(mindset2, story)%>%
+  summarize(prop_agreement =round(mean(agreement),2), se_agree= sundry::se(agreement))
+summary2%<>% rename("Mindset" = mindset2)
+
+#try 2: summarizing data for plot 1 (version dividing agreement only per mindset)
+
+summary3<- data%>% 
+  group_by(mindset2)%>%
+  summarize(prop_agreement =round(mean(agreement),2))
+
+#let's try to add uncertainty: 
+
+summary3_se<- data%>% 
+  group_by(mindset2)%>%
+  summarize(prop_agreement =round(mean(agreement),2), se_agree= sundry::se(agreement))
+
+
+
+
+#new version- process:  
+
+#try 2: plot 1 (without including stories division)
+
+ggplot(summary3, aes(mindset2, prop_agreement))+
+  geom_col(alpha=.7, fill = c("#798E87", "#C27D38"),width = .5)+
+  labs(title= "Proportion of agreement in Control vs Doubt groups", x = "Mindset", y = "Proportion of agreement") + 
+  theme_minimal(base_size = 15) 
+```
+
+
+## Second version 
+
+Added error bars and increased the font size for legends 
+
+```{r try 2}
+
+#version with uncertainy: OK VERSION
+
+ggplot(summary3_se, aes(mindset2, prop_agreement))+
+  geom_col(alpha=.7, fill = c("#798E87", "#C27D38"),width = .5)+
+  geom_errorbar(aes(ymin = prop_agreement + qnorm(0.025)*se_agree,
+                    ymax = prop_agreement + qnorm(0.975)*se_agree,
+                    group = mindset2), size=.3, width= .2) +
+  labs(title= "Proportion of agreement in Control vs Doubt groups", x = "Mindset", y = "Proportion of agreement") + 
+  theme_minimal(base_size = 15)
+```
+
+
+# Final version: 
+
+Changed colors for more bright and still color blind friendly ones. Changed y-axis from proportion to percentages, since percentages are easier to interpret. 
+
+
+
+
+```{r try 3}
+#NEW updated version: uncertainty + new color pallette(more bright but still color blind firendly , #chevalier1) + percentage instead of proportion 
+
+ggplot(summary3_se, aes(mindset2, prop_agreement))+
+  geom_col(alpha=.7, fill = c("#446455", "#FDD262"),width = .5)+
+  geom_errorbar(aes(ymin = prop_agreement + qnorm(0.025)*se_agree,
+                    ymax = prop_agreement + qnorm(0.975)*se_agree,
+                    group = mindset2), size=.3, width= .15) +
+  labs(title= "Agreement in Control vs Doubt mindset groups", x = "Mindset", y = "Percentage of agreement") + 
+  theme_minimal(base_size = 15)+
+  scale_y_continuous(labels = scales::percent)
+
+
+
+
+
+```
+
+## Interpretation: 
+
+As we can see, contrary to our Hypothesis 1, the percentage of dyads that reached agreement was higher in the Control mindset group than in the Doubt mindset group. This is only simulated data, plus the original data collection is ongoing, so we don't know if this difference will be significant or not. But so far, it seems to suggest that thinking about our own doubts before engaging in a heated discussion does not help us reach to reach agreement with someone else! 
