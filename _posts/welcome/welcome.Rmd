@@ -1,0 +1,26 @@
+---
+title: "Welcome to My Final Project Blog"
+description: |
+  Welcome to My Final Project Blog. I hope you enjoy 
+  reading what I have to say!
+author:
+  - name: Tamara Niella 
+    url: https://www.linkedin.com/in/tniella/
+    affiliation: University of Oregon 
+    affiliation_url: uoregon.edu 
+date: 03-20-2019
+output:
+  radix::radix_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating blogs with Radix at:
+# https://rstudio.github.io/radix/blog.html
+
+```
+
+
+

@@ -1,0 +1,17 @@
+[
+  {
+    "path": "posts/welcome/",
+    "title": "Welcome to My Final Project Blog",
+    "description": "Welcome to My Final Project Blog. I hope you enjoy \nreading what I have to say!",
+    "author": [
+      {
+        "name": "Tamara Niella",
+        "url": "https://www.linkedin.com/in/tniella/"
+      }
+    ],
+    "date": "2019-03-20",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-03-20T16:33:10-07:00"
+  }
+]
