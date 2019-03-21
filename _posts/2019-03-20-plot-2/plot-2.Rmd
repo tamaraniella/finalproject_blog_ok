@@ -173,7 +173,7 @@ ggplot(summary_cond_se1, aes(condition, prop_agreement))+
   geom_errorbar(aes(ymin = prop_agreement + qnorm(0.025)*se_agree,
                     ymax = prop_agreement + qnorm(0.975)*se_agree,
                     group = condition), size=.3, width= .15) +
-  labs(title= "Expected Agreement in Imagine vs Agreement in Interaction", x = "Condition", y = "Percentage of agreement")+
+  labs(title= "Imagined Agreement vs Interaction Agreement", x = "Condition", y = "Percentage of agreement")+
   theme_minimal(base_size = 15)+
   ylim(0, 1)+
   scale_y_continuous(labels = scales::percent)
@@ -194,7 +194,7 @@ ggplot(summary_cond_se1, aes(condition, prop_agreement))+
   geom_errorbar(aes(ymin = prop_agreement + qnorm(0.025)*se_agree,
                     ymax = prop_agreement + qnorm(0.975)*se_agree,
                     group = condition), size=.3, width= .15) +
-  labs(title= "Expected Agreement in Imagine vs Agreement in Interaction", x = "Condition", y = "Percentage of agreement")+
+  labs(title= "Imagined Agreement vs Interaction Agreement", x = "Condition", y = "Percentage of agreement")+
   theme_minimal(base_size = 15)+
   ylim(0, 1)+
   scale_y_continuous(labels = scales::percent)
