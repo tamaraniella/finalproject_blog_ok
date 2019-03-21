@@ -1,20 +1,5 @@
 [
   {
-    "path": "posts/welcome/",
-    "title": "Welcome to My Final Project Blog",
-    "description": "Welcome to My Final Project Blog. I hope you enjoy \nreading what I have to say!",
-    "author": [
-      {
-        "name": "Tamara Niella",
-        "url": "https://www.linkedin.com/in/tniella/"
-      }
-    ],
-    "date": "2019-03-20",
-    "categories": [],
-    "preview": {},
-    "last_modified": "2019-03-20T16:33:10-07:00"
-  },
-  {
     "path": "posts/2019-03-20-introduction/",
     "title": "Project Description",
     "description": "I will be presenting three plots depicting the main results of the following research project. The data used for this publication is a simulated data set of a portion of the original data set obtained from actual data collection through different experiment sessions.",
@@ -28,5 +13,20 @@
     "categories": [],
     "preview": {},
     "last_modified": "2019-03-20T20:37:25-07:00"
+  },
+  {
+    "path": "posts/welcome/",
+    "title": "Welcome to My Final Project Blog",
+    "description": "Welcome to My Final Project Blog. I hope you enjoy \nreading what I have to say!",
+    "author": [
+      {
+        "name": "Tamara Niella",
+        "url": "https://www.linkedin.com/in/tniella/"
+      }
+    ],
+    "date": "2019-03-20",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-03-20T16:33:10-07:00"
   }
 ]
