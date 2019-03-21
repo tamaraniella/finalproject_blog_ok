@@ -15,6 +15,21 @@
     "last_modified": "2019-03-20T20:37:25-07:00"
   },
   {
+    "path": "posts/2019-03-20-plot-1/",
+    "title": "Plot 1",
+    "description": "Here I will briefly show the process I went through before getting the final version of the first plot, together with its final version.",
+    "author": [
+      {
+        "name": "Tamara Niella",
+        "url": "https://www.linkedin.com/in/tniella/"
+      }
+    ],
+    "date": "2019-03-20",
+    "categories": [],
+    "preview": "posts/2019-03-20-plot-1/plot-1_files/figure-html5/try1-1.png",
+    "last_modified": "2019-03-20T23:03:46-07:00"
+  },
+  {
     "path": "posts/welcome/",
     "title": "Welcome to My Final Project Blog",
     "description": "Welcome to My Final Project Blog. I hope you enjoy \nreading what I have to say!",

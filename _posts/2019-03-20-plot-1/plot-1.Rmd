@@ -1,7 +1,7 @@
 ---
 title: "Plot 1"
-description: | Here I will briefly show the process I went through before getting the final version of the first plot together with its final version. 
-
+description: |
+  Here I will briefly show the process I went through before getting the final version of the first plot, together with its final version.
 author:
   - name: Tamara Niella
     url: https://www.linkedin.com/in/tniella/
@@ -10,6 +10,7 @@ output:
   radix::radix_article:
     self_contained: false
 ---
+
 
 ```{r setup, include=FALSE}
 
@@ -181,4 +182,7 @@ ggplot(summary3_se, aes(mindset2, prop_agreement))+
 
 ## Interpretation: 
 
-As we can see, contrary to our Hypothesis 1, the percentage of dyads that reached agreement was higher in the Control mindset group than in the Doubt mindset group. This is only simulated data, plus the original data collection is ongoing, so we don't know if this difference will be significant or not. But so far, it seems to suggest that thinking about our own doubts before engaging in a heated discussion does not help us reach to reach agreement with someone else! 
+As we can see, contrary to our Hypothesis 1, the percentage of dyads that reached agreement was higher in the Control mindset group than in the Doubt mindset group. This is only simulated data, plus the original data collection is ongoing, so we don't know if this difference will be significant or not. But so far, it seems to suggest that thinking about our own doubts before engaging in a heated discussion does not help us reach to reach agreement with someone else!  
+
+
+
