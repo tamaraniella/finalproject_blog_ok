@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "Project Description"
 description: |
   A short description of the post.
 author:
@@ -15,7 +15,66 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Radix is a publication format for scientific and technical writing, native to the web.
+I will be presenting three plots depicting the main results of the following research project. The data used for this publication is a simulated data set of a portion of the original data set obtained from actual data collection through different experiment sessions. 
 
-Learn more about using Radix at <https://rstudio.github.io/radix>.
+# Nudging Agreement in a Polarized Environment 
+
+## Introduction 
+
+Does having people reflect on their own doubts before engaging in a discussion have a positive effect on the discussion? More specifically, when two people with differing positions about an issue (e.g., moral, social, or political) engage in a discussion about it, with the goal to reach an agreement, we are studying whether considering doubts about their own position may open them to the other side. In addition, people may underestimate the power that face-to-face discussions – especially when they are about charged issues – have in reaching agreement. 
+
+In addition, we wanted to understand why people avoid heated discussions with people whose opinions differ from their own. We thus studied people’s expectancy of agreement to compare it to the actual proportion of agreements that result from two people discussing face-to-face. We expect to see a higher proportion of actual agreement than people would predict when asked to imagine such discussions. 
+
+Last but not least, we want to study how people's own opinion on certain moral issue changes after having discussed it with someone else. We are also interested to study whether having had a higher proportion of agreement in a discussion, brings the two discussion partners closer together in their opinions and therefore, whether a higher percentage of agreement brings people generally closer together on their judgment of a certain issue. 
+
+## Hypotheses 
+
+### Hypothesis 1: 
+
+If people reflect on their own doubts for an opinion, their chances of reaching agreement in a discussion of that issue with another person will increase.
+
+### Hypothesis 2: 
+
+People who imagine a discussion about a contentious issue will believe there is less chance of reaching agreement than the actual levels of agreement achieved in a real face-to-face discussion. 
+
+### Hypothesis 3: 
+
+The distribution of opinions on a certain moral/political issue after discussing with a partner becomes more uni-modal (people's opinions become more similar), the higher the proportion of agreement is in the discussion. 
+
+## Design and Procedure 
+
+We designed a set of expeirments, in which we will base our conclusions on the stated hypotheses. 
+
+### Interaction Condition 
+
+Run in classroom groups of ~30 people. 
+Subjects read 2 stories about moral and political issues (one about Freedom of Speech; the other on Cyber-privacy). 
+
+#### Part 1 
+
+##### Judgment 1
+
+Participants rate how right or wrong they find the actions in the story, from1 (wrong) to 10 (right)
+
+##### Mindset 
+
+Participants write one of two short paragraphs, they are thus divided into two groups: 
+
+Control: 
+“Now, in 2 or 3 lines explain what the story was about as if you were telling it to someone else in your own words”
+
+Doubt: 
+“Now, consider how your opinion might be wrong and explain in 2 or 3 lines what doubts you might have about your own opinion”
+
+
+
+
+
+
+
+
+
+
+
+
 
