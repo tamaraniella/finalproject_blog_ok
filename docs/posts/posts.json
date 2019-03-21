@@ -16,8 +16,8 @@
   },
   {
     "path": "posts/2019-03-20-introduction/",
-    "title": "Introduction",
-    "description": "A short description of the post.",
+    "title": "Project Description",
+    "description": "I will be presenting three plots depicting the main results of the following research project. The data used for this publication is a simulated data set of a portion of the original data set obtained from actual data collection through different experiment sessions.",
     "author": [
       {
         "name": "Tamara Niella",
@@ -27,6 +27,6 @@
     "date": "2019-03-20",
     "categories": [],
     "preview": {},
-    "last_modified": "2019-03-20T18:54:00-07:00"
+    "last_modified": "2019-03-20T20:37:25-07:00"
   }
 ]
